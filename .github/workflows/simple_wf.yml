@@ -2,6 +2,11 @@ name: Simple Workflow
 
 on:
     workflow_dispatch:
+        inputs:
+            variable:
+                description: 'Enter the value of the most important variable:'
+                required: true
+                default: 'Zero'
 
 jobs:
 
@@ -13,6 +18,7 @@ jobs:
         - name: 1.1 UPLOADING FILES
           run: |
             cp ./scripts/main.py ./.github/actions/action_1.2/main.py
+            echo "${{ github.event.inputs.variable }}" > ./.github/actions/action_1.2/variable.txt
         - name: 1.2 EXECUTING THE PYTHON SCRIPT
           uses: ./.github/actions/action_1.2
         - name: 1.3 DOWNLOAD ARTIFACT
